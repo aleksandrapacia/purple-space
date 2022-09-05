@@ -1,0 +1,240 @@
+<Layout_>:
+    Screen:
+        MDNavigationLayout:
+            ScreenManager:
+                id: management
+
+                AboveScreen:
+                    id: above   
+                    name: 'above'
+
+                    BoxLayout:
+                        orientation: 'vertical'
+                        MDTopAppBar
+                            pos_hint: {'top':1}
+                            id: toolbar
+                            title: ' ' 
+                            left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
+                            elevation: 5
+                        
+                        Widget:
+
+                    ScreenManager:
+                        
+                        MenuScreen:
+                            id: menu
+                            name: 'menu'
+                            BoxLayout:
+                                orientation: 'vertical'
+                                MDTopAppBar
+                                    pos_hint: {'top':1}
+                                    id: toolbar
+                                    title: ' ' 
+                                    left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
+                                    elevation: 5
+                                Widget:
+                        AboutScreen:
+                            id: aboutapp
+                        MoonMap:
+                            id: moon_map
+                        TrackScreen:
+                            id: iss_tracking
+                        MoonPhaseScreen:
+                            id: moon_phase
+                        InfoScreen:
+                            id: phas_info
+                            
+                            
+                                
+                    MDNavigationDrawer:
+                        id: nav_drawer
+                        ContentNavigationDrawer:
+                            management: management
+                            nav_drawer: nav_drawer
+                            menu: menu
+                            
+
+<ContentNavigationDrawer>:
+
+    ScrollView:
+
+        MDList:
+
+            
+            OneLineListItem:
+                text: 'Menu'
+                on_release:
+                    root.nav_drawer.set_state('close')
+                    root.management.current = 'menu'
+            OneLineListItem:
+                text: 'Settings'
+
+# MENU SCREENS
+
+<MenuScreen>:
+    id: menu
+    name: 'menu'
+
+    ScrollView:
+        size: self.size
+
+        GridLayout:
+            size_hint_y: None  
+            height: self.minimum_height
+            width: self.minimum_width
+            cols: 2
+            spacing: dp(20)
+            padding: [dp(20), dp(100), dp(20), dp(100)]
+
+            MDCard:
+                orientation: 'vertical'
+                padding: '8dp'
+                size_hint: 1, None
+                height: '210dp'
+                radius: [15]
+                border_radius: 0
+                on_release:
+                    root.telling_abt()
+                md_bg_color:40/255.0, 30.1/255.0, 120/255.0, 0.3
+                MDLabel:
+                    text: 'About App'
+                    font_name: 'Roboto-Bold'
+                    font_size: 60
+                    halign: 'center'
+                    pos_hint: {'center_y':.5}
+                    color: 1,1,1,1
+
+            MDCard:
+                orientation: 'vertical'
+                padding: '8dp'
+                size_hint: 1, None
+                height: '210dp'
+                radius: [15]
+                border_radius: 0            
+                #on_release:
+                    #root.telling_abt()
+                # dark color:
+                md_bg_color:40/255.0, 30.1/255.0, 120/255.0, 0.2
+                MDLabel:
+                    text: 'This Month'
+                    font_name: 'Roboto-Bold'
+                    font_size: 60
+                    halign: 'center'
+                    color: 1,1,1,1
+                    pos_hint: {'center_y':.5}
+
+            MDCard:
+                orientation: 'vertical'
+                padding: '8dp'
+                size_hint: 1, None
+                height: '210dp'
+                radius: [15]
+                border_radius: 0           
+                on_release:
+                    root.moon_map()
+                # light color:
+                md_bg_color:40/255.0, 30.1/255.0, 120/255.0, 0.2
+                MDLabel:
+                    text: 'Moon Map'
+                    font_name: 'Roboto-Bold'
+                    font_size: 60
+                    halign: 'center'
+                    color: 1,1,1,1
+                    pos_hint: {'center_y':.5}
+
+                
+
+            MDCard:
+                orientation: 'vertical'
+                padding: '8dp'
+                size_hint: 1, None
+                height: '210dp'
+                radius: [15]
+                border_radius: 0            
+                on_release:
+                    root.tracking_iss()
+                md_bg_color:40/255.0, 30.1/255.0, 120/255.0, 0.3
+                MDLabel:
+                    text: 'Track ISS'
+                    font_name: 'Roboto-Bold'
+                    font_size: 60
+                    halign: 'center'
+                    color: 1,1,1,1
+                    pos_hint: {'center_y':.5}
+
+            MDCard:
+                orientation: 'vertical'
+                padding: '8dp'
+                size_hint: 1, None
+                height: '210dp'
+                radius: [15]
+                border_radius: 0 
+                on_release:
+                    root.moon_phases()           
+                #on_release:
+                    #root.telling_abt()
+                md_bg_color:40/255.0, 30.1/255.0, 120/255.0, 0.3
+                MDLabel:
+                    text: 'Moon Phase'
+                    font_name: 'Roboto-Bold'
+                    font_size: 60
+                    halign: 'center'
+                    color: 1,1,1,1
+                    pos_hint: {'center_y':.5}
+          
+
+            MDCard:
+                orientation: 'vertical'
+                padding: '8dp'
+                size_hint: 1, None
+                height: '210dp'
+                radius: [15]
+                border_radius: 0            
+                #on_release:
+                    #root.telling_abt()
+                md_bg_color:40/255.0, 30.1/255.0, 120/255.0, 0.2
+                
+                MDLabel:
+                    text: 'Launch'
+                    font_name: 'Roboto-Bold'
+                    font_size: 60
+                    halign: 'center'
+                    color: 1,1,1,1
+                    pos_hint: {'center_y':.5}
+
+
+<InfoScreen>:
+    name: 'phas_info'
+    ScrollView:
+        RelativeLayout:
+    
+            MDLabel:
+                text: 'Info'
+                halign: 'center'
+                font_name: 'Roboto-Bold'
+                font_size: 60
+                pos_hint: {'center_x':.5,'center_y':.9}
+
+            MDIconButton:
+                icon: "arrow-right"
+                halign: 'center'
+                pos_hint: {"center_x": .95, "center_y": .9}
+                on_release:
+                    root.manager.current = 'moon_phase'
+
+                
+            RelativeLayout:
+                pos_hint: {'center_x':.5, 'center_y': .6}
+                Image:
+                    source: 'images//phases//to_full//26.png'
+                Label:
+                    text: 'Full Moon'
+
+                Image:
+                    source: 'images//phases//to_full//1.png'
+                    pos_hint: {'center_x': .5, 'center_y': .1}
+                Label:
+                    text: 'New Moon'
+                    pos_hint: {'center_x': .5, 'center_y': .1}
+                    
+                    
